@@ -21,5 +21,5 @@ El cliente cuenta su evento, elige platos del menú y envía la cotización por 
 
 ## Publicar
 
-Es un sitio estático publicado con GitHub Pages en https://jorgelam57-png.github.io/DECOEVENTO/ (cada cambio en `main` se publica solo).
+Es un sitio estático publicado con GitHub Pages en https://decoevento.github.io (cada cambio en `main` se publica solo).
 Para probar en local: `python3 -m http.server` y abrir http://localhost:8000.
