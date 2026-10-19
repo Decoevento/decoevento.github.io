@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Decoevento Cotizador</title>
+  <meta name="description" content="Decoevento — Catering & Eventos en Miami. Arma tu menú y recibe tu cotización por WhatsApp o correo.">
+  <meta name="theme-color" content="#F9F8F6">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#top" aria-label="Decoevento">
+        <img src="logo.png" alt="Decoevento" width="834" height="219">
+      </a>
+      <nav class="topbar__links" aria-label="Contacto">
+        <a href="https://www.instagram.com/decoeventolg/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          <span>@decoeventolg</span>
+        </a>
+        <a href="mailto:decoeventolg@yahoo.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+          <span>decoeventolg@yahoo.com</span>
+        </a>
+        <a href="tel:+17867407339" aria-label="Teléfono">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.6 4-2.2 1.4a11 11 0 0 0 6.7 6.7l1.4-2.2 4 1.6V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>
+          <span>+1 (786) 740-7339</span>
+        </a>
+      </nav>
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <span class="lang__thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="page">
+        <aside class="page__side">
+          <p class="kicker" data-i18n="kicker">Catering &amp; Eventos</p>
+        </aside>
+        <div class="page__main">
+          <h1 class="display"><span data-i18n="heroA">Cotiza tu</span> <em data-i18n="heroB">evento</em></h1>
+          <p class="lede" data-i18n="heroLede">Cuéntanos de tu celebración, arma tu menú plato a plato y recibe tu cotización por WhatsApp o correo.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="steps" aria-label="Pasos">
+      <div class="page">
+        <div class="page__side"></div>
+        <ol class="page__main steps__list">
+          <li><button type="button" data-goto="1" aria-current="step"><span class="steps__n">01</span><span data-i18n="step1">Tu evento</span></button></li>
+          <li><button type="button" data-goto="2"><span class="steps__n">02</span><span data-i18n="step2">Menú</span></button></li>
+          <li><button type="button" data-goto="3"><span class="steps__n">03</span><span data-i18n="step3">Cotización</span></button></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- PASO 1 -->
+    <section class="step" data-step="1">
+      <div class="page">
+        <aside class="page__side">
+          <h2 class="section-title"><span data-i18n="s1a">Tu</span> <em data-i18n="s1b">evento</em></h2>
+        </aside>
+        <form class="page__main form" id="eventForm" novalidate>
+          <fieldset class="q" data-field="occasion">
+            <legend><span class="q__n">01</span><span data-i18n="qOccasion">Motivo de la celebración</span></legend>
+            <div class="chips" data-single="occasion"></div>
+            <input class="line" type="text" id="occasionOther" data-i18n-ph="occasionOtherPh" placeholder="Cuéntanos cuál" hidden>
+            <p class="q__err" data-i18n="errRequired">Este dato es necesario</p>
+          </fieldset>
+
+          <fieldset class="q" data-field="date">
+            <legend><span class="q__n">02</span><span data-i18n="qDate">Fecha del evento</span></legend>
+            <input class="line" type="date" id="date">
+            <p class="q__err" data-i18n="errRequired">Este dato es necesario</p>
+          </fieldset>
+
+          <fieldset class="q" data-field="venue">
+            <legend><span class="q__n">03</span><span data-i18n="qVenue">¿Dónde es el evento?</span></legend>
+            <div class="chips" data-single="venue"></div>
+            <input class="line" type="text" id="location" data-i18n-ph="locationPh" placeholder="Ciudad o dirección (opcional)">
+            <p class="q__err" data-i18n="errRequired">Este dato es necesario</p>
+          </fieldset>
+
+          <fieldset class="q" data-field="guests">
+            <legend><span class="q__n">04</span><span data-i18n="qGuests">¿Cuántos invitados?</span></legend>
+            <div class="guests">
+              <button type="button" class="round" data-guests="-5" aria-label="−5">−</button>
+              <input class="line line--big" type="number" inputmode="numeric" min="1" max="2000" id="guests" placeholder="50">
+              <button type="button" class="round" data-guests="5" aria-label="+5">+</button>
+              <span class="guests__unit" data-i18n="guestsUnit">invitados</span>
+            </div>
+            <p class="q__err" data-i18n="errGuests">Indica cuántos invitados esperas</p>
+          </fieldset>
+
+          <fieldset class="q" data-field="duration">
+            <legend><span class="q__n">05</span><span data-i18n="qDuration">¿Cuánto tiempo estimas que dure?</span></legend>
+            <div class="chips" data-single="duration"></div>
+          </fieldset>
+
+          <fieldset class="q" data-field="services">
+            <legend><span class="q__n">06</span><span data-i18n="qServices">¿Qué necesitas de nosotros?</span></legend>
+            <p class="q__hint" data-i18n="servicesHint">Puedes elegir varios</p>
+            <div class="chips" data-multi="services"></div>
+            <p class="q__err" data-i18n="errServices">Elige al menos un servicio</p>
+          </fieldset>
+
+          <div class="form__actions">
+            <button type="submit" class="btn btn--primary"><span data-i18n="toMenu">Continuar al menú</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="step" data-step="2" hidden>
+      <div class="catnav" id="catnav"><div class="catnav__inner"></div></div>
+      <div class="page">
+        <aside class="page__side">
+          <h2 class="section-title"><em data-i18n="s2">Menú</em></h2>
+          <p class="side-note" data-i18n="menuHint">Toca un plato para agregarlo. Verás el total al final.</p>
+        </aside>
+        <div class="page__main" id="menu"></div>
+      </div>
+      <div class="tray" id="tray">
+        <div class="tray__inner">
+          <button type="button" class="btn btn--ghost" data-goto="1"><span data-i18n="back">Atrás</span></button>
+          <p class="tray__count" id="trayCount" aria-live="polite"></p>
+          <button type="button" class="btn btn--primary" data-goto="3"><span data-i18n="toQuote">Ver cotización</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASO 3 -->
+    <section class="step" data-step="3" hidden>
+      <div class="page">
+        <aside class="page__side">
+          <h2 class="section-title"><span data-i18n="s3a">Tu</span> <em data-i18n="s3b">cotización</em></h2>
+        </aside>
+        <div class="page__main">
+          <article class="sheet" id="sheet"></article>
+
+          <form class="contact" id="contactForm" novalidate>
+            <h3 class="label" data-i18n="contactTitle">¿A nombre de quién?</h3>
+            <div class="contact__grid">
+              <label class="field"><span data-i18n="name">Nombre</span><input class="line" type="text" id="cName" autocomplete="name" required></label>
+              <label class="field"><span data-i18n="phone">Teléfono</span><input class="line" type="tel" id="cPhone" autocomplete="tel"></label>
+              <label class="field"><span data-i18n="email">Correo</span><input class="line" type="email" id="cEmail" autocomplete="email"></label>
+              <label class="field field--wide"><span data-i18n="notes">Notas (alergias, ideas, estilo)</span><textarea class="line" id="cNotes" rows="2"></textarea></label>
+            </div>
+            <p class="q__err" id="contactErr" data-i18n="errContact">Escribe tu nombre y un teléfono o correo para responderte</p>
+            <div class="send">
+              <a class="btn btn--primary btn--wa" data-send="wa" href="https://wa.me/17867407339" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.4-1.8-.9-.8.8a4 4 0 0 1-2.4-2.4l.8-.8-.9-1.8L9 9.5z" fill="currentColor" stroke="none"/></svg>
+                <span data-i18n="sendWa">Enviar por WhatsApp</span>
+              </a>
+              <a class="btn btn--line" data-send="mail" href="mailto:decoeventolg@yahoo.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+                <span data-i18n="sendMail">Enviar por correo</span>
+              </a>
+              <button type="button" class="btn btn--quiet" data-send="copy"><span data-i18n="copy">Copiar resumen</span></button>
+            </div>
+          </form>
+          <button type="button" class="btn btn--ghost back3" data-goto="2"><span data-i18n="editMenu">Editar menú</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="logo.png" alt="Decoevento" class="footer__logo" width="834" height="219">
+    <p class="footer__thanks" data-i18n="thanks">Gracias</p>
+    <ul class="footer__links">
+      <li><a href="tel:+17867407339">+1 (786) 740-7339</a></li>
+      <li><a href="mailto:decoeventolg@yahoo.com">decoeventolg@yahoo.com</a></li>
+      <li><a href="https://www.instagram.com/decoeventolg/" target="_blank" rel="noopener">@decoeventolg</a></li>
+    </ul>
+    <p class="footer__fine" data-i18n="fine">Precios por persona. La propuesta final puede ajustarse según cantidad de invitados, selección de items, montaje, personal, alquileres y logística del evento.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
