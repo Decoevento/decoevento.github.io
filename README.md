@@ -12,7 +12,6 @@ El cliente cuenta su evento, elige platos del menú y envía la cotización por 
 | `app.js` | Lógica: pasos, selección, cálculo del total, textos ES/EN, envío por WhatsApp/correo |
 | `styles.css` | Diseño |
 | `logo.png`, `icon.png` | Logo y favicon |
-| `build-artifact.py` | Genera `artifact.html`, la versión publicada como Artifact de Claude |
 
 ## Contacto configurado
 
@@ -22,5 +21,5 @@ El cliente cuenta su evento, elige platos del menú y envía la cotización por 
 
 ## Publicar
 
-Es un sitio estático: sirve tal cual en GitHub Pages, Netlify o cualquier hosting.
+Es un sitio estático publicado con GitHub Pages en https://jorgelam57-png.github.io/DECOEVENTO/ (cada cambio en `main` se publica solo).
 Para probar en local: `python3 -m http.server` y abrir http://localhost:8000.

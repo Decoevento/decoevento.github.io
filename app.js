@@ -619,6 +619,7 @@
   $(".send").addEventListener("click", async (e) => {
     const b = e.target.closest("[data-send]"); if (!b) return;
     const kind = b.dataset.send, tx = t();
+    if (kind === "print") { window.print(); return; }
     if (kind === "copy") {
       const text = messageText(false);
       try { await navigator.clipboard.writeText(text); toast(tx.copied); }
