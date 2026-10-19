@@ -228,3 +228,11 @@ window.MENU = [
     ]
   }
 ];
+
+// Fotos de eventos reales (carpeta img/). Se muestran debajo del encabezado; si la lista está vacía, la sección no aparece.
+// Ejemplo: { src: "img/boda-01.jpg", alt: { es: "Mesa de quesos en boda", en: "Cheese table at a wedding" } }
+window.GALLERY = [];
+
+// Testimonios de clientes (con su permiso). Se muestran junto al botón final.
+// Ejemplo: { name: "María L.", event: { es: "Boda, 120 invitados", en: "Wedding, 120 guests" }, text: { es: "…", en: "…" } }
+window.TESTIMONIALS = [];

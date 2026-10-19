@@ -54,6 +54,10 @@
       </div>
     </section>
 
+    <section class="gallery" id="gallery" hidden aria-label="Eventos Decoevento">
+      <div class="gallery__track"></div>
+    </section>
+
     <nav class="steps" aria-label="Pasos">
       <div class="page">
         <div class="page__side"></div>
@@ -148,30 +152,44 @@
           <h2 class="section-title"><span data-i18n="s3a">Tu</span> <em data-i18n="s3b">cotización</em></h2>
         </aside>
         <div class="page__main">
-          <article class="sheet" id="sheet"></article>
-
-          <form class="contact" id="contactForm" novalidate>
-            <h3 class="label" data-i18n="contactTitle">¿A nombre de quién?</h3>
+          <!-- Antes de ver el total, el cliente deja sus datos -->
+          <form class="gate" id="contactForm" novalidate>
+            <h3 class="gate__title" data-i18n="gateTitle">¿A dónde te enviamos tu cotización?</h3>
+            <p class="gate__lede" data-i18n="gateLede">Tu cotización está lista. Déjanos tus datos para verla y te confirmamos disponibilidad.</p>
             <div class="contact__grid">
               <label class="field"><span data-i18n="name">Nombre</span><input class="line" type="text" id="cName" autocomplete="name" required></label>
-              <label class="field"><span data-i18n="phone">Teléfono</span><input class="line" type="tel" id="cPhone" autocomplete="tel"></label>
-              <label class="field"><span data-i18n="email">Correo</span><input class="line" type="email" id="cEmail" autocomplete="email"></label>
+              <label class="field"><span data-i18n="phone">WhatsApp</span><input class="line" type="tel" id="cPhone" autocomplete="tel" inputmode="tel" placeholder="+1 (305) 000-0000" required></label>
+              <label class="field"><span data-i18n="email">Correo (opcional)</span><input class="line" type="email" id="cEmail" autocomplete="email"></label>
               <label class="field field--wide"><span data-i18n="notes">Notas (alergias, ideas, estilo)</span><textarea class="line" id="cNotes" rows="2"></textarea></label>
+              <input type="text" id="cWebsite" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
             </div>
-            <p class="q__err" id="contactErr" data-i18n="errContact">Escribe tu nombre y un teléfono o correo para responderte</p>
-            <div class="send">
-              <a class="btn btn--primary btn--wa" data-send="wa" href="https://wa.me/17867407339" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.4-1.8-.9-.8.8a4 4 0 0 1-2.4-2.4l.8-.8-.9-1.8L9 9.5z" fill="currentColor" stroke="none"/></svg>
-                <span data-i18n="sendWa">Enviar por WhatsApp</span>
-              </a>
-              <a class="btn btn--line" data-send="mail" href="mailto:decoeventolg@yahoo.com">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
-                <span data-i18n="sendMail">Enviar por correo</span>
-              </a>
-              <button type="button" class="btn btn--quiet" data-send="copy"><span data-i18n="copy">Copiar resumen</span></button>
-              <button type="button" class="btn btn--quiet" data-send="print"><span data-i18n="print">Guardar PDF</span></button>
+            <p class="q__err" id="contactErr" data-i18n="errContact">Escribe tu nombre y un número de WhatsApp para enviarte la cotización</p>
+            <div class="gate__actions">
+              <button type="submit" class="btn btn--primary"><span data-i18n="seeQuote">Ver mi cotización</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              <p class="gate__privacy" data-i18n="privacy">Solo usamos tus datos para darte seguimiento sobre este evento.</p>
             </div>
           </form>
+
+          <div id="quoteOut" hidden>
+            <article class="sheet" id="sheet"></article>
+
+            <div class="cta">
+              <p class="cta__lede" data-i18n="ctaLede">Siguiente paso: confirmar que tu fecha está disponible.</p>
+              <div class="send">
+                <a class="btn btn--primary btn--wa" data-send="wa" href="https://wa.me/17867407339" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.4-1.8-.9-.8.8a4 4 0 0 1-2.4-2.4l.8-.8-.9-1.8L9 9.5z" fill="currentColor" stroke="none"/></svg>
+                  <span data-i18n="sendWa">Verificar disponibilidad de mi fecha</span>
+                </a>
+                <a class="btn btn--line" data-send="mail" href="mailto:decoeventolg@yahoo.com">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+                  <span data-i18n="sendMail">Prefiero por correo</span>
+                </a>
+              </div>
+              <p class="cta__note" data-i18n="ctaNote">Te respondemos con la propuesta formal en PDF, fotos de montajes y los siguientes pasos.</p>
+            </div>
+
+            <section class="quotes" id="testimonials" hidden></section>
+          </div>
           <button type="button" class="btn btn--ghost back3" data-goto="2"><span data-i18n="editMenu">Editar menú</span></button>
         </div>
       </div>

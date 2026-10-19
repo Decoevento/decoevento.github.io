@@ -4,6 +4,9 @@
   const PHONE_WA = "17867407339";
   const EMAIL = "decoeventolg@yahoo.com";
   const STORE_KEY = "decoevento-quote-v1";
+  // URL de la app web de Google Apps Script que guarda cada solicitud en Google Sheets (ver apps-script/Code.gs).
+  // Mientras esté vacía, la página funciona igual pero no guarda las solicitudes.
+  const LEADS_URL = "";
 
   // ---------- Textos ----------
   const T = {
@@ -21,11 +24,17 @@
       qDuration: "¿Cuánto tiempo estimas que dure?",
       qServices: "¿Qué necesitas de nosotros?", servicesHint: "Puedes elegir varios",
       errRequired: "Este dato es necesario", errGuests: "Indica cuántos invitados esperas", errServices: "Elige al menos un servicio",
-      errContact: "Escribe tu nombre y un teléfono o correo para responderte",
+      errContact: "Escribe tu nombre y un número de WhatsApp para enviarte la cotización",
       toMenu: "Continuar al menú", toQuote: "Ver cotización", back: "Atrás", editMenu: "Editar menú",
       menuHint: "Toca un plato para agregarlo. El total lo verás al final.",
-      contactTitle: "¿A nombre de quién?", name: "Nombre", phone: "Teléfono", email: "Correo", notes: "Notas (alergias, ideas, estilo)",
-      sendWa: "Enviar por WhatsApp", sendMail: "Enviar por correo", copy: "Copiar resumen", print: "Guardar PDF",
+      gateTitle: "¿A dónde te enviamos tu cotización?",
+      gateLede: "Tu cotización está lista. Déjanos tus datos para verla y te confirmamos disponibilidad.",
+      name: "Nombre", phone: "WhatsApp", email: "Correo (opcional)", notes: "Notas (alergias, ideas, estilo)",
+      seeQuote: "Ver mi cotización", privacy: "Solo usamos tus datos para darte seguimiento sobre este evento.",
+      ctaLede: "Siguiente paso: confirmar que tu fecha está disponible.",
+      sendWa: "Verificar disponibilidad de mi fecha", sendMail: "Prefiero por correo",
+      ctaNote: "Te respondemos con la propuesta formal en PDF, fotos de montajes y los siguientes pasos.",
+      refLabel: "Ref.", testimonialsTitle: "Lo que dicen nuestros clientes",
       thanks: "Gracias",
       fine: "Precios por persona. La propuesta final puede ajustarse según cantidad de invitados, selección de items, montaje, personal, alquileres y logística del evento.",
       occasions: ["Boda", "Cumpleaños", "Quinceañera", "Baby shower", "Bautizo / Comunión", "Graduación", "Aniversario", "Corporativo", "Otro"],
@@ -47,8 +56,8 @@
       noItems: "Aún no has elegido platos. Igual puedes enviarnos tu solicitud y te asesoramos con el menú.",
       separate: (s) => `${s}: se cotiza por separado.`,
       sheetFine: "Cotización estimada. Precios por persona salvo donde se indica. La propuesta final puede ajustarse según cantidad de invitados, selección de items, montaje, personal, alquileres y logística del evento. No incluye impuestos ni propinas.",
-      copied: "Resumen copiado", openedWa: "Abriendo WhatsApp…", openedMail: "Abriendo tu correo…",
-      msgHello: "Hola Decoevento, me gustaría cotizar mi evento.",
+      openedWa: "Abriendo WhatsApp…", openedMail: "Abriendo tu correo…",
+      msgHello: (ref) => `Hola Decoevento, quiero verificar disponibilidad para mi evento. Mi cotización es la ${ref}.`,
       msgEvent: "EVENTO", msgMenu: "MENÚ", msgContact: "CONTACTO", msgNotes: "Notas",
       mailSubject: (o, d) => `Cotización Decoevento · ${o} · ${d}`,
       tbd: "Por definir"
@@ -67,11 +76,17 @@
       qDuration: "How long will it last?",
       qServices: "What do you need from us?", servicesHint: "Choose as many as you like",
       errRequired: "We need this one", errGuests: "Tell us how many guests you expect", errServices: "Choose at least one service",
-      errContact: "Add your name and a phone or email so we can reply",
+      errContact: "Add your name and a WhatsApp number so we can send your quote",
       toMenu: "Continue to menu", toQuote: "See my quote", back: "Back", editMenu: "Edit menu",
       menuHint: "Tap a dish to add it. You'll see the total at the end.",
-      contactTitle: "Who is this for?", name: "Name", phone: "Phone", email: "Email", notes: "Notes (allergies, ideas, style)",
-      sendWa: "Send via WhatsApp", sendMail: "Send via email", copy: "Copy summary", print: "Save PDF",
+      gateTitle: "Where should we send your quote?",
+      gateLede: "Your quote is ready. Leave your details to see it and we'll confirm availability.",
+      name: "Name", phone: "WhatsApp", email: "Email (optional)", notes: "Notes (allergies, ideas, style)",
+      seeQuote: "See my quote", privacy: "We only use your details to follow up about this event.",
+      ctaLede: "Next step: make sure your date is available.",
+      sendWa: "Check availability for my date", sendMail: "I prefer email",
+      ctaNote: "We'll reply with the formal proposal in PDF, photos of our set-ups and next steps.",
+      refLabel: "Ref.", testimonialsTitle: "What our clients say",
       thanks: "Thank you",
       fine: "Prices are per person. The final proposal may be adjusted based on guest count, item selection, set-up, staffing, rentals and event logistics.",
       occasions: ["Wedding", "Birthday", "Sweet 15", "Baby shower", "Baptism / Communion", "Graduation", "Anniversary", "Corporate", "Other"],
@@ -93,8 +108,8 @@
       noItems: "You haven't picked any dishes yet. You can still send your request and we'll help you build the menu.",
       separate: (s) => `${s}: quoted separately.`,
       sheetFine: "Estimated quote. Prices are per person unless noted. The final proposal may be adjusted based on guest count, item selection, set-up, staffing, rentals and event logistics. Taxes and gratuity not included.",
-      copied: "Summary copied", openedWa: "Opening WhatsApp…", openedMail: "Opening your email…",
-      msgHello: "Hi Decoevento, I'd like a quote for my event.",
+      openedWa: "Opening WhatsApp…", openedMail: "Opening your email…",
+      msgHello: (ref) => `Hi Decoevento, I'd like to check availability for my event. My quote is ${ref}.`,
       msgEvent: "EVENT", msgMenu: "MENU", msgContact: "CONTACT", msgNotes: "Notes",
       mailSubject: (o, d) => `Decoevento quote · ${o} · ${d}`,
       tbd: "TBD"
@@ -110,14 +125,31 @@
     step: 1,
     event: { occasion: null, occasionOther: "", date: "", venue: null, location: "", guests: "", duration: null, services: [] },
     sel: {},
-    contact: { name: "", phone: "", email: "", notes: "" }
+    contact: { name: "", phone: "", email: "", notes: "" },
+    ref: newRef(),
+    unlocked: false,
+    origin: ""
   });
+
+  function newRef() {
+    const d = new Date();
+    const mmdd = String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+    return `COT-${mmdd}-${Math.floor(100 + Math.random() * 900)}`;
+  }
 
   let state = defaults();
   try {
     const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
     if (saved && saved.event) state = Object.assign(defaults(), saved, { step: 1 });
   } catch (_) { /* almacenamiento no disponible */ }
+
+  // De dónde llegó el cliente (por ejemplo ?utm_source=instagram en el enlace de la bio)
+  (() => {
+    const q = new URLSearchParams(location.search);
+    const utm = ["utm_source", "utm_medium", "utm_campaign"].map((k) => q.get(k)).filter(Boolean).join(" / ");
+    const ref = document.referrer && !document.referrer.includes(location.host) ? new URL(document.referrer).hostname : "";
+    if (utm || ref) state.origin = utm || ref;
+  })();
 
   const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (_) {} };
 
@@ -149,7 +181,8 @@
     renderChips();
     renderMenu();
     updateTray();
-    if (state.step === 3) renderSheet(false);
+    if (state.step === 3 && state.unlocked) renderSheet(false);
+    renderProof();
   }
 
   $$(".lang button").forEach((b) => b.addEventListener("click", () => {
@@ -508,7 +541,7 @@
     $("#sheet").innerHTML = `
       <header class="sheet__head">
         <img class="sheet__logo" src="logo.png" alt="Decoevento">
-        <p class="sheet__date">${tx.quoteLabel}<br>${today}</p>
+        <p class="sheet__date">${tx.quoteLabel} · ${tx.refLabel} ${esc(state.ref)}<br>${today}</p>
       </header>
       <h3 class="sheet__title" id="sheetTitle">${name ? `${tx.quoteFor} <em>${esc(name)}</em>` : `<em>${tx.quoteForYou}</em>`}</h3>
       <dl class="facts">${eventFacts().map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
@@ -562,21 +595,65 @@
         if (h) h.innerHTML = n ? `${tx.quoteFor} <em>${esc(n)}</em>` : `<em>${tx.quoteForYou}</em>`;
       }
     });
-    if (key === "notes") el.addEventListener("change", () => renderSheet(false));
+    if (key === "notes") el.addEventListener("change", () => { if (state.unlocked) { renderSheet(false); sendLead("lead"); } });
   });
 
   function validateContact() {
     const c = state.contact;
-    const ok = c.name.trim() && (c.phone.trim() || /\S+@\S+\.\S+/.test(c.email));
+    const phoneOk = c.phone.replace(/\D/g, "").length >= 7;
+    const emailOk = !c.email.trim() || /\S+@\S+\.\S+/.test(c.email);
+    const ok = c.name.trim() && phoneOk && emailOk;
     $("#contactErr").classList.toggle("is-shown", !ok);
-    if (!ok) (c.name.trim() ? $("#cPhone") : $("#cName")).focus();
+    if (!ok) (!c.name.trim() ? $("#cName") : !phoneOk ? $("#cPhone") : $("#cEmail")).focus();
     return !!ok;
   }
+
+  // ---------- Registro de solicitudes (Google Sheets) ----------
+  function leadPayload(action, extra = {}) {
+    const tx = T.es, ev = state.event, q = quote(), c = state.contact;
+    return {
+      action, ref: state.ref, lang: state.lang, origin: state.origin,
+      name: c.name.trim(), phone: c.phone.trim(), email: c.email.trim(), notes: c.notes.trim(),
+      occasion: ev.occasion === OCCASION_OTHER ? ev.occasionOther.trim() : tx.occasions[ev.occasion] || "",
+      date: ev.date, venue: [ev.venue != null ? tx.venues[ev.venue] : "", ev.location.trim()].filter(Boolean).join(" · "),
+      guests: guests(), duration: ev.duration != null ? tx.durations[ev.duration] : "",
+      services: ev.services.map((i) => tx.services[i]).join(", "),
+      menu: q.lines.map((l) => `${l.name}${l.variant ? ` (${l.variant})` : ""}: ${l.calc} = ${money2(l.amount)}`).join("\n"),
+      total: Math.round(q.total * 100) / 100,
+      website: $("#cWebsite").value,
+      ...extra
+    };
+  }
+
+  function sendLead(action, extra) {
+    if (!LEADS_URL) return;
+    const body = JSON.stringify(leadPayload(action, extra));
+    try {
+      // text/plain evita la verificación CORS previa; la respuesta no se necesita
+      fetch(LEADS_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body });
+    } catch (_) { /* sin conexión: no bloquea al cliente */ }
+  }
+
+  function showQuote(animate) {
+    $("#contactForm").hidden = true;
+    $("#quoteOut").hidden = false;
+    renderSheet(animate);
+  }
+
+  $("#contactForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validateContact()) return;
+    state.unlocked = true; save();
+    sendLead("lead");
+    showQuote(true);
+    const top = $("#quoteOut").getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: prefersReduced() ? "auto" : "smooth" });
+  });
 
   function messageText(forWhatsApp) {
     const tx = t(), q = quote(), c = state.contact;
     const b = (s) => (forWhatsApp ? `*${s}*` : s);
-    const out = [tx.msgHello, "", b(tx.msgEvent)];
+    const out = [tx.msgHello(state.ref), "", b(tx.msgEvent)];
     eventFacts().forEach(([k, v]) => out.push(`${k}: ${v}`));
     out.push("", b(tx.msgMenu));
     if (!q.lines.length) out.push(tx.noItems);
@@ -616,28 +693,12 @@
     $('[data-send="mail"]').href = mailHref();
   }
 
-  $(".send").addEventListener("click", async (e) => {
+  $(".send").addEventListener("click", (e) => {
     const b = e.target.closest("[data-send]"); if (!b) return;
-    const kind = b.dataset.send, tx = t();
-    if (kind === "print") { window.print(); return; }
-    if (kind === "copy") {
-      const text = messageText(false);
-      try { await navigator.clipboard.writeText(text); toast(tx.copied); }
-      catch (_) { selectFallback(text); }
-      return;
-    }
-    if (!validateContact()) { e.preventDefault(); return; }
     updateSendLinks();
-    toast(kind === "wa" ? tx.openedWa : tx.openedMail);
+    sendLead("click", { channel: b.dataset.send === "wa" ? "WhatsApp" : "Correo" });
+    toast(b.dataset.send === "wa" ? t().openedWa : t().openedMail);
   });
-
-  function selectFallback(text) {
-    const ta = document.createElement("textarea");
-    ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0;top:0";
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); toast(t().copied); } catch (_) {}
-    ta.remove();
-  }
 
   let toastTimer;
   function toast(msg) {
@@ -664,7 +725,11 @@
       b.classList.toggle("is-done", k < n);
     });
     if (n === 2) { syncAutoQty(); renderMenu(); updateTray(); }
-    if (n === 3) renderSheet(true);
+    if (n === 3) {
+      $("#contactForm").hidden = state.unlocked;
+      $("#quoteOut").hidden = !state.unlocked;
+      if (state.unlocked) { showQuote(true); sendLead("lead"); }
+    }
     if (n === 1 && opts.showErrors) { validateEvent(true); return; }
     if (!opts.instant) {
       const top = $(".steps").getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--topbar"));
@@ -678,6 +743,21 @@
     if (n > 1 && !validateEvent(false)) { goTo(1, { showErrors: true }); return; }
     goTo(n);
   });
+
+  // ---------- Fotos y testimonios (data.js) ----------
+  function renderProof() {
+    const photos = window.GALLERY || [];
+    const gal = $("#gallery");
+    gal.hidden = !photos.length;
+    $(".gallery__track", gal).innerHTML = photos.map((p) =>
+      `<figure class="gallery__item"><img src="${esc(p.src)}" alt="${esc(L(p.alt))}" loading="lazy" decoding="async"></figure>`).join("");
+
+    const quotes = window.TESTIMONIALS || [];
+    const box = $("#testimonials");
+    box.hidden = !quotes.length;
+    box.innerHTML = quotes.length ? `<h3 class="label">${t().testimonialsTitle}</h3>${quotes.map((q) =>
+      `<blockquote class="quote"><p>“${esc(L(q.text))}”</p><footer>${esc(q.name)}${q.event ? ` · ${esc(L(q.event))}` : ""}</footer></blockquote>`).join("")}` : "";
+  }
 
   // ---------- Inicio ----------
   applyLang();
