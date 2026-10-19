@@ -39,12 +39,12 @@ window.MENU = [
     note: { es: "Servidos en mini platito", en: "Served on a mini plate" },
     unit: "piece",
     items: [
-      { id: "calabacin", tag: { es: "Vegano", en: "Vegan" }, name: { es: "Calabacín y alcachofas", en: "Zucchini & artichoke" }, desc: { es: "calabacín, alcachofas, lonjas de parmesano, rúgula y cebollas crocantes", en: "zucchini, artichokes, shaved parmesan, arugula and crispy onions" }, price: 4.5 },
-      { id: "betabel", tag: { es: "Vegano", en: "Vegan" }, name: { es: "Betabel y cabra", en: "Beet & goat cheese" }, desc: { es: "betabel, queso cabra y almendras caramelizadas", en: "beet, goat cheese and caramelized almonds" }, price: 3.5 },
-      { id: "higos-burrata", tag: { es: "Vegano", en: "Vegan" }, name: { es: "Higos, burrata y jamón serrano", en: "Fig, burrata & serrano ham" }, desc: { es: "higos, burrata, jamón serrano y pistachos", en: "figs, burrata, serrano ham and pistachios" }, price: 4.5 },
-      { id: "carpaccio-res", tag: { es: "Proteína", en: "Protein" }, name: { es: "Carpaccio de res", en: "Beef carpaccio" }, desc: { es: "cebollitas, alcaparras, rúgula y lonjas de parmesano con mayonesa trufada", en: "onions, capers, arugula and shaved parmesan with truffle mayo" }, price: 4.5 },
-      { id: "carpaccio-atun", tag: { es: "Proteína", en: "Protein" }, name: { es: "Carpaccio de atún", en: "Tuna carpaccio" }, desc: { es: "cebolla morada, mango, aguacate, cilantro y poro crocante", en: "red onion, mango, avocado, cilantro and crispy leek" }, price: 4.5 },
-      { id: "carpaccio-salmon", tag: { es: "Proteína", en: "Protein" }, name: { es: "Carpaccio de salmón", en: "Salmon carpaccio" }, desc: { es: "cebolla morada, chile jalapeño, aguacate y cilantro con vinagreta de maracuyá", en: "red onion, jalapeño, avocado and cilantro with passion-fruit vinaigrette" }, price: 4.5 }
+      { id: "calabacin", name: { es: "Calabacín y alcachofas", en: "Zucchini & artichoke" }, desc: { es: "calabacín, alcachofas, lonjas de parmesano, rúgula y cebollas crocantes", en: "zucchini, artichokes, shaved parmesan, arugula and crispy onions" }, price: 4.5 },
+      { id: "betabel", name: { es: "Betabel y cabra", en: "Beet & goat cheese" }, desc: { es: "betabel, queso cabra y almendras caramelizadas", en: "beet, goat cheese and caramelized almonds" }, price: 3.5 },
+      { id: "higos-burrata", name: { es: "Higos, burrata y jamón serrano", en: "Fig, burrata & serrano ham" }, desc: { es: "higos, burrata, jamón serrano y pistachos", en: "figs, burrata, serrano ham and pistachios" }, price: 4.5 },
+      { id: "carpaccio-res", name: { es: "Carpaccio de res", en: "Beef carpaccio" }, desc: { es: "cebollitas, alcaparras, rúgula y lonjas de parmesano con mayonesa trufada", en: "onions, capers, arugula and shaved parmesan with truffle mayo" }, price: 4.5 },
+      { id: "carpaccio-atun", name: { es: "Carpaccio de atún", en: "Tuna carpaccio" }, desc: { es: "cebolla morada, mango, aguacate, cilantro y poro crocante", en: "red onion, mango, avocado, cilantro and crispy leek" }, price: 4.5 },
+      { id: "carpaccio-salmon", name: { es: "Carpaccio de salmón", en: "Salmon carpaccio" }, desc: { es: "cebolla morada, chile jalapeño, aguacate y cilantro con vinagreta de maracuyá", en: "red onion, jalapeño, avocado and cilantro with passion-fruit vinaigrette" }, price: 4.5 }
     ]
   },
   {
