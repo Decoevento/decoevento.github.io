@@ -343,10 +343,30 @@ textarea.line { resize: vertical; min-height: 46px; }
 .gate__privacy { margin: 0; font-size: 0.82rem; color: var(--muted); }
 .hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
+/* ---------- Preguntas extra por servicio ---------- */
+.extras { display: grid; gap: clamp(28px, 4vw, 40px); }
+.extras:empty { display: none; }
+.q--extra { padding: 22px 0 0; border-top: 1px dashed var(--rule); }
+.q--extra .q__n { font-style: normal; }
+.q--extra .q__hint { margin: 0 0 10px; color: var(--ink); }
+.extra-q + .extra-q, .extra-q + .extra-text, .extra-text + .extra-q { display: block; margin-top: 18px; }
+.extra-text { display: block; margin-top: 18px; }
+.extra-text .line { margin-top: 0; }
+.extras .chip { min-height: 38px; padding: 0 15px; font-size: 0.88rem; }
+
+/* Paso de menú cuando no aplica */
+.steps__list button.is-skipped { text-decoration: line-through; text-decoration-color: var(--faint); cursor: default; }
+
+/* Confirmación después de enviar */
+.done { margin-top: 24px; padding: 18px 20px; border-radius: 4px; background: var(--blue-wash); }
+.done__title { margin: 0; font: italic 400 1.5rem/1.2 var(--serif); color: var(--ink-strong); }
+.done__text { margin: 6px 0 0; font-size: 0.92rem; color: var(--ink); }
+.line-row--plain { grid-template-columns: minmax(0, 1fr); }
+
 /* ---------- CTA final ---------- */
 .cta { margin-top: clamp(32px, 5vw, 48px); }
-.cta__lede { margin: 0; font: italic 400 clamp(1.4rem, 3vw, 1.75rem)/1.2 var(--serif); color: var(--ink-strong); }
-.cta .send { margin-top: 18px; }
+.cta__lede { margin: 32px 0 0; font: italic 400 clamp(1.4rem, 3vw, 1.75rem)/1.2 var(--serif); color: var(--ink-strong); }
+.gate .send { margin-top: 16px; }
 .cta__note { margin: 14px 0 0; max-width: 36em; font-size: 0.88rem; color: var(--muted); }
 
 /* ---------- Testimonios ---------- */

@@ -1,7 +1,7 @@
 # Decoevento · Cotizador
 
-Página web para cotizar servicios de catering y eventos de Decoevento.
-El cliente cuenta su evento, elige platos del menú y envía la cotización por WhatsApp o correo.
+Página web para solicitar estimados de catering y eventos de Decoevento.
+El cliente cuenta su evento (con preguntas extra según el servicio), elige platos del menú y envía la solicitud por WhatsApp o correo. La página no muestra totales: Decoevento prepara el estimado y responde.
 
 ## Archivos
 
@@ -9,7 +9,7 @@ El cliente cuenta su evento, elige platos del menú y envía la cotización por 
 | --- | --- |
 | `index.html` | La página (estructura y textos fijos) |
 | `data.js` | **El menú: platos, descripciones y precios en español e inglés.** Aquí se cambian los precios. Al final están las fotos (`GALLERY`) y testimonios (`TESTIMONIALS`). |
-| `app.js` | Lógica: pasos, selección, cálculo del total, textos ES/EN, envío por WhatsApp/correo |
+| `app.js` | Lógica: pasos, preguntas extra por servicio (`EXTRAS`), selección del menú, textos ES/EN, envío por WhatsApp/correo |
 | `styles.css` | Diseño |
 | `logo.png`, `icon.png` | Logo y favicon |
 | `apps-script/Code.gs` | Script de Google que guarda cada solicitud en Google Sheets y avisa por correo. Su URL va en `LEADS_URL` (app.js) |

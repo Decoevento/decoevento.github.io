@@ -65,10 +65,10 @@ window.MENU = [
       { id: "empanadita", name: { es: "Mini empanadita de carne mechada", en: "Mini shredded beef empanada" }, desc: { es: "con salsa de ajo y cilantro", en: "with garlic and cilantro sauce" }, price: 2 },
       {
         id: "lomito", name: { es: "Filet mignon o pincho de lomito", en: "Filet mignon or beef skewer" },
-        desc: { es: "con papas fritas y salsa entrecot", en: "with fries and entrecôte sauce" },
+        desc: { es: "con salsa entrecot", en: "with entrecôte sauce" },
         variants: [
           { id: "filet", label: { es: "Filet mignon", en: "Filet mignon" }, price: 3.5 },
-          { id: "pincho", label: { es: "Pincho de lomito", en: "Beef skewer" }, price: 4.75 }
+          { id: "pincho", label: { es: "Pincho de lomito con papas fritas", en: "Beef skewer with fries" }, price: 4.75 }
         ]
       },
       { id: "deditos-pollo", name: { es: "Deditos de pollo", en: "Chicken fingers" }, desc: { es: "con ajonjolí y salsa estilo thai", en: "with sesame and Thai-style sauce" }, price: 2 }
@@ -125,6 +125,7 @@ window.MENU = [
       },
       {
         id: "italiana", name: { es: "Italiana", en: "Italian" },
+        min: 20,
         price: 44, setup: 230,
         choices: [
           { id: "ensaladas", label: { es: "Ensaladas", en: "Salads" }, max: 2, options: [
@@ -143,6 +144,7 @@ window.MENU = [
       },
       {
         id: "thai", name: { es: "Thai", en: "Thai" },
+        min: 20,
         variants: [
           { id: "2", label: { es: "Con 2 proteínas", en: "With 2 proteins" }, price: 42 },
           { id: "3", label: { es: "Con 3 proteínas", en: "With 3 proteins" }, price: 48.5 }
@@ -161,16 +163,19 @@ window.MENU = [
       },
       {
         id: "hamburguesas", name: { es: "Hamburguesas artesanales", en: "Artisan burgers" },
+        min: 20,
         desc: { es: "Preparadas al momento: quesos, tocineta, cebolla caramelizada, champiñones, aguacate, salsas artesanales y papas fritas o wedges.", en: "Made to order: cheeses, bacon, caramelized onion, mushrooms, avocado, artisan sauces and fries or wedges." },
         price: 29.5
       },
       {
         id: "mexicana", name: { es: "Mexicana gourmet", en: "Mexican gourmet" },
+        min: 20,
         desc: { es: "Tortillas y tostadas; carne molida, pollo desmechado y camarones al ajillo; guacamole, pico de gallo, salsas, nata, quesos y chips.", en: "Tortillas and tostadas; seasoned beef, shredded chicken and garlic shrimp; guacamole, pico de gallo, salsas, crema, cheeses and chips." },
         price: 29.5
       },
       {
         id: "prime", name: { es: "Prime", en: "Prime" },
+        min: 20,
         variants: [
           { id: "1", label: { es: "Una proteína", en: "One protein" }, price: 46 },
           { id: "2", label: { es: "Dos proteínas", en: "Two proteins" }, price: 54 }
@@ -189,11 +194,14 @@ window.MENU = [
       },
       {
         id: "arepas", name: { es: "Arepas", en: "Arepas" },
+        min: 20,
         desc: { es: "Incluye 3 arepas por persona. Carne mechada, reina pepeada, pernil, frijoles negros, perico, quesos, nata, mantequilla y guasacaca.", en: "Includes 3 arepas per person. Shredded beef, reina pepiada, pernil, black beans, perico, cheeses, cream, butter and guasacaca." },
         price: 22, setup: 220
       },
       {
         id: "brunch", name: { es: "Brunch", en: "Brunch" },
+        min: 20,
+        desc: { es: "Elige 6 items. El Brunch Signature incluye más opciones; te las detallamos en el estimado.", en: "Pick 6 items. The Signature Brunch includes more options; we'll detail them in your estimate." },
         setup: 230,
         variants: [
           { id: "clasico", label: { es: "Brunch clásico", en: "Classic brunch" }, price: 39 },

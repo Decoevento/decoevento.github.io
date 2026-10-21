@@ -19,7 +19,7 @@ const AVISAR_A = "decoeventolg@yahoo.com"; // a quién le llega el aviso de cada
 const COLUMNAS = [
   "Recibida", "Referencia", "Estado", "Nombre", "WhatsApp", "Correo",
   "Motivo", "Fecha evento", "Lugar", "Invitados", "Duración", "Servicios",
-  "Menú", "Total estimado", "Notas", "Idioma", "Origen", "Último clic", "Seguimiento"
+  "Detalles de servicios", "Menú", "Total menú (interno)", "Notas", "Idioma", "Origen", "Último clic", "Seguimiento"
 ];
 const COL = Object.fromEntries(COLUMNAS.map((c, i) => [c, i + 1]));
 
@@ -36,7 +36,7 @@ function doPost(e) {
 
     if (datos.action === "click") {
       if (fila) {
-        hoja.getRange(fila, COL["Estado"]).setValue(`Abrió ${datos.channel || "WhatsApp"}`);
+        hoja.getRange(fila, COL["Estado"]).setValue(`Envió por ${datos.channel || "WhatsApp"}`);
         hoja.getRange(fila, COL["Último clic"]).setValue(new Date());
       }
       return respuesta();
@@ -53,8 +53,9 @@ function doPost(e) {
       "Invitados": datos.guests,
       "Duración": datos.duration,
       "Servicios": datos.services,
+      "Detalles de servicios": datos.details,
       "Menú": datos.menu,
-      "Total estimado": datos.total,
+      "Total menú (interno)": datos.total,
       "Notas": datos.notes,
       "Idioma": datos.lang,
       "Origen": datos.origin
@@ -86,7 +87,8 @@ function avisar(d) {
     `Motivo: ${d.occasion} · Fecha: ${d.date} · Invitados: ${d.guests}`,
     `Lugar: ${d.venue}`,
     `Servicios: ${d.services}`,
-    `Total estimado: ${total}`,
+    d.details ? d.details : "",
+    `Total menú (sin impuesto ni fees): ${total}`,
     "",
     d.menu || "(sin platos elegidos)",
     d.notes ? `\nNotas: ${d.notes}` : "",
@@ -121,12 +123,13 @@ function configurar() {
     .setFontWeight("bold").setBackground("#4A4A4A").setFontColor("#F9F8F6");
   hoja.setFrozenRows(1);
   hoja.getRange("A:A").setNumberFormat("dd/mm/yyyy hh:mm");
-  hoja.getRange("N:N").setNumberFormat("$#,##0.00");
-  hoja.getRange("R:R").setNumberFormat("dd/mm/yyyy hh:mm");
+  hoja.getRange(1, COL["Total menú (interno)"], 1000, 1).setNumberFormat("$#,##0.00");
+  hoja.getRange(1, COL["Último clic"], 1000, 1).setNumberFormat("dd/mm/yyyy hh:mm");
   hoja.setColumnWidth(COL["Menú"], 360);
-  hoja.getRange("M:M").setWrap(true);
+  hoja.setColumnWidth(COL["Detalles de servicios"], 280);
+  hoja.getRange(1, COL["Detalles de servicios"], 1000, 2).setWrap(true);
   const estados = SpreadsheetApp.newDataValidation()
-    .requireValueInList(["Dejó sus datos", "Abrió WhatsApp", "Abrió Correo", "Contactado", "Propuesta enviada", "Reservado", "Perdido"], true)
+    .requireValueInList(["Dejó sus datos", "Envió por WhatsApp", "Envió por Correo", "Contactado", "Estimado enviado", "Reservado", "Perdido"], true)
     .setAllowInvalid(true).build();
   hoja.getRange(2, COL["Estado"], 999, 1).setDataValidation(estados);
   const hoja1 = libro.getSheetByName("Hoja 1") || libro.getSheetByName("Sheet1");
